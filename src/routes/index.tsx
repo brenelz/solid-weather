@@ -1,4 +1,4 @@
-import { ErrorBoundary, Show, Suspense, createEffect, createMemo, createResource, createSignal } from "solid-js";
+import { ErrorBoundary, Show, Suspense, createEffect, createMemo, createResource, createSignal, resetErrorBoundaries } from "solid-js";
 
 const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -7,6 +7,8 @@ export default function App() {
   const [tempUnit, setTempUnit] = createSignal('Celcius');
 
   const [temperature] = createResource(cityName, async (city) => {
+
+    resetErrorBoundaries();
 
     const result = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
