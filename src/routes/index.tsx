@@ -1,4 +1,4 @@
-import { Show, createSignal } from "solid-js";
+import { Show, createMemo, createSignal } from "solid-js";
 
 const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -9,7 +9,10 @@ export default function App() {
   const [error, setError] = createSignal(false);
   const [tempUnit, setTempUnit] = createSignal('Celcius')
 
-  const tempCelsius = () => tempKelvin() ? Math.round(tempKelvin() - 273.15) : undefined;
+  const tempCelsius = createMemo(() => {
+    const kelvinVal = tempKelvin();
+    return kelvinVal ? Math.round(kelvinVal - 273.15) : undefined;
+  });
 
   const handleSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
