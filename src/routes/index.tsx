@@ -37,6 +37,9 @@ export default function App() {
 
     if (!cityName) return;
     setCityName(cityName);
+
+    form.reset();
+    formElements.cityName.focus();
   };
 
   return (
